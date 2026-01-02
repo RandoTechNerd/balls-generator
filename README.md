@@ -15,7 +15,10 @@ A parametric 3D generator for spheres, capsules, and containers. Featuring "Deep
 ### Mac / Linux (Docker)
 1. Install [Docker Desktop](https://www.docker.com/products/docker-desktop/).
 2. Download and unzip the source code.
-3. **Mac Users:** Right-click `launch_mac.command` -> **Open** (to bypass security once).
+3. **Mac Users (First Time Setup):**
+    *   Because this was packaged on Windows, you must give the script permission to run.
+    *   Open **Terminal**, type `chmod +x ` (note the space), drag `launch_mac.command` into the window, and hit **Enter**.
+    *   Now you can **Right-click** `launch_mac.command` -> **Open**.
 4. **Linux Users:** Run `sh run_mac_linux.sh` in the terminal.
 
 ### Python (Manual)

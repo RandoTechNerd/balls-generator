@@ -6,12 +6,21 @@ import os
 import trimesh
 from balls_lib import generate_ball_v18
 
+# --- PATH SETUP ---
+# Fix for Docker/Linux case sensitivity and working dir issues
+current_dir = os.path.dirname(os.path.abspath(__file__))
+icon_path = os.path.join(current_dir, "ball_icon.png")
+
 # --- CONFIG ---
-st.set_page_config(page_title="BALLS! (v18)", page_icon="Balls_Generator/ball_icon.png", layout="wide")
+st.set_page_config(page_title="BALLS! (v18)", page_icon=icon_path, layout="wide")
 
 col_head1, col_head2 = st.columns([1, 6])
 with col_head1:
-    st.image("Balls_Generator/ball_icon.png", width=80)
+    if os.path.exists(icon_path):
+        st.image(icon_path, width=80)
+    else:
+        st.warning("Icon not found")
+        
 with col_head2:
     st.title("BALLS! (v18)")
 
