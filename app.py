@@ -1,17 +1,20 @@
 import streamlit as st
+import os
+
+# --- CLOUD FIX: HEADLESS OPENGL ---
+os.environ["PYOPENGL_PLATFORM"] = "osmesa"
+
 import numpy as np
 import plotly.graph_objects as go
 import tempfile
-import os
 import trimesh
 from balls_lib import generate_ball_v18
 
-# --- PATH SETUP ---
+# --- CONFIG ---
 # Fix for Docker/Linux case sensitivity and working dir issues
 current_dir = os.path.dirname(os.path.abspath(__file__))
 icon_path = os.path.join(current_dir, "ball_icon.png")
 
-# --- CONFIG ---
 st.set_page_config(page_title="BALLS! (v18)", page_icon=icon_path, layout="wide")
 
 col_head1, col_head2 = st.columns([1, 6])
@@ -19,7 +22,8 @@ with col_head1:
     if os.path.exists(icon_path):
         st.image(icon_path, width=80)
     else:
-        st.warning("Icon not found")
+        # Fallback if image fails (Cloud path issue?)
+        st.write("⚽") 
         
 with col_head2:
     st.title("BALLS! (v18)")
@@ -58,7 +62,7 @@ with st.sidebar:
             part = "Dual"
             pitch, tol, th_len, back_h = 2.0, 0.4, 6.0, 8.0
             mag_count, mag_dia = 4, 6.0
-            th_depth, back_th, j_off = 0.8, 2.0, 0.0
+            th_depth, back_th, j_off, force_lip, cut_th = 0.8, 2.0, 0.0, False, False
             
             st.markdown("---")
             latch_off = st.slider("Latch Finger Offset (Snugness)", 0.0, 5.0, 3.0, 0.1, help="Moves the finger outwards for looser fit or inwards for tighter fit.")
@@ -106,8 +110,7 @@ with st.sidebar:
 # --- GENERATION ---
 if 'mesh_obj' not in st.session_state: 
     st.session_state.mesh_obj = None
-    # Disable auto-gen to prevent Cloud timeout
-    st.session_state.needs_refresh = False 
+    st.session_state.needs_refresh = False
 
 if st.session_state.get('needs_refresh', False):
     with st.spinner("Processing Geometry..."):
