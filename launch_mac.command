@@ -11,7 +11,9 @@ then
 fi
 
 echo "Launching BALLS! (v18)..."
-echo "Please wait while the application builds. This may take a few minutes the first time."
-docker-compose up --build
+echo "Rebuilding container to ensure latest fixes..."
+docker-compose down
+docker-compose build --no-cache
+docker-compose up
 
 read -p "Press [Enter] to close..."
