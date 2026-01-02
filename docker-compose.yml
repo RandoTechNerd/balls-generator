@@ -1,0 +1,12 @@
+version: '3'
+services:
+  balls-generator:
+    build: .
+    container_name: balls_v18
+    ports:
+      - "8505:8501"
+    volumes:
+      - .:/app
+    environment:
+      - STREAMLIT_SERVER_HEADLESS=true
+      - STREAMLIT_SERVER_FILE_WATCHER_TYPE=none

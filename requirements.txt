@@ -1,0 +1,9 @@
+numpy
+numpy-stl
+streamlit
+matplotlib
+plotly
+scipy
+shapely
+trimesh
+mapbox_earcut
