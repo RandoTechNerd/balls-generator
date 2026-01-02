@@ -106,7 +106,8 @@ with st.sidebar:
 # --- GENERATION ---
 if 'mesh_obj' not in st.session_state: 
     st.session_state.mesh_obj = None
-    st.session_state.needs_refresh = True
+    # Disable auto-gen to prevent Cloud timeout
+    st.session_state.needs_refresh = False 
 
 if st.session_state.get('needs_refresh', False):
     with st.spinner("Processing Geometry..."):
